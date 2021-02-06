@@ -20,3 +20,16 @@ const checkCommentLength = function (comment, maxLength) {
 }
 
 checkCommentLength();
+
+const getPhotoInfo = function() {
+
+  return {
+    id: '',
+    url: '',
+    description: '',
+    likes: '',
+    comments: '',
+  }
+}
+
+console.log(getPhotoInfo())
