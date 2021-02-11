@@ -2,24 +2,19 @@
 // Постарался разобраться
 
 const getRandomNumber = function(min, max) {
-  if (max > min) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min + 1)) + min;
-  } else {
-    return Math.floor(Math.random() * (min - max + 1)) + max;
-  }
+  const maxNumber = (max > min) ? Math.floor(max) : Math.ceil(min);
+  const minNumber = (max > min) ? Math.ceil(min) : Math.floor(max);
+
+  return Math.floor(Math.random() * (maxNumber - minNumber + 1)) + minNumber;
 }
 
-getRandomNumber();
+const checkCommentLength = function (comment, maxLength) {
+  maxLength = 140;
 
-// const checkCommentLength = function (comment, maxLength) {
-//   maxLength = 140;
+  return comment.length <= maxLength;
+}
 
-//   return comment.length <= maxLength;
-// }
-
-// checkCommentLength();
+checkCommentLength();
 
 const DESC = [
   'Моя любимая фотография.',
@@ -29,6 +24,8 @@ const DESC = [
   'Это. Не. Можыд. Быт.',
   'Фотограф из меня просто гениальный.',
   'Думаю на стенку повесить. Как вам кажется?',
+  'Вот куплю новое оборудование, всё сразу лучше станет',
+  'Если присмотреться, то можно увидеть там Дурова',
 ]
 
 const MESSAGE_LIST = [
@@ -52,7 +49,7 @@ const COMMENT_NAME = [
 let arrId = [];
 
 const getCommentId = function () {
-  for (let k = 26; k <= 100; k++) {
+  for (let k = 1; k <= 100; k++) {
     arrId.push(k);
   }
 
@@ -67,15 +64,15 @@ const getCommentId = function () {
 }
 
 const getMessage = function () {
-  const messageQty = getRandomNumber(1, 2);
-  const messageIndex = getRandomNumber(0, MESSAGE_LIST.length - 1);
-  const messageIndexTwo = getRandomNumber(0, MESSAGE_LIST.length - 1);
+  const messageQty = getRandomNumber(1, 3);
+  let messageArr = []
 
-  if (messageQty === 2) {
-    return MESSAGE_LIST[messageIndex] + ' ' + MESSAGE_LIST[messageIndexTwo]
+  for (let p = 1; p <= messageQty; p++) {
+    const messageIndex = getRandomNumber(0, MESSAGE_LIST.length - 1);
+    messageArr.push(MESSAGE_LIST[messageIndex]);
   }
 
-  return MESSAGE_LIST[messageIndex]
+  return messageArr.join(' ')
 }
 
 const getComment = function() {
@@ -101,23 +98,25 @@ const getCommentArr = function() {
   return commentArr
 }
 
-
-
 const getPhotoInfo = function() {
-  const randomLikes = getRandomNumber(15, 200);
-  const randomDesc = getRandomNumber(0, DESC.length - 1);
+  let photoInfo = [];
 
   for (let i = 1; i <= 25; i++) {
-    return {
+    const randomLikes = getRandomNumber(15, 200);
+    const randomDesc = getRandomNumber(0, DESC.length - 1);
+    const photoInfoObj = {
       id: i,
       url: 'photos/' + i + '.jpg',
       description: DESC[randomDesc],
       likes: randomLikes,
       comments: getCommentArr(),
     }
-  }  
+    photoInfo.push(photoInfoObj)
+  }
+  return photoInfo;
 }
 
-const photoInfoArray = new Array(25).fill(null).map(() => getPhotoInfo());
 
-photoInfoArray
+// const photoInfoArray = new Array(25).fill(null).map(() => getPhotoInfo());
+
+console.log(getPhotoInfo())
