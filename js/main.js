@@ -116,7 +116,7 @@ const getPhotoInfo = function() {
   return photoInfo;
 }
 
+getPhotoInfo();
+
 
 // const photoInfoArray = new Array(25).fill(null).map(() => getPhotoInfo());
-
-console.log(getPhotoInfo())
