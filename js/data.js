@@ -103,4 +103,3 @@ const getPhotoInfo = function() {
 
 getPhotoInfo();
 
-console.log(getPhotoInfo());
