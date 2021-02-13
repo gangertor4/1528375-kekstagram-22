@@ -5,10 +5,12 @@ const getRandomNumber = function(min, max) {
   return Math.floor(Math.random() * (maxNumber - minNumber + 1)) + minNumber;
 }
 
-const checkCommentLength = function (comment, maxLength) {
-  maxLength = 140;
+// const checkCommentLength = function (comment, maxLength) {
+//   maxLength = 140;
 
-  return comment.length <= maxLength;
-}
+//   return comment.length <= maxLength;
+// }
+
+// checkCommentLength();
 
 export {getRandomNumber};

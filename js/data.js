@@ -101,6 +101,4 @@ const getPhotoInfo = function() {
   return photoInfo;
 }
 
-getPhotoInfo();
-
-console.log(getPhotoInfo());
+export {getPhotoInfo};
