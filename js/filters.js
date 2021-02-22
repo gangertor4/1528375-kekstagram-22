@@ -33,7 +33,7 @@ noUiSlider.create(filterSlider, {
   step: 1,
 });
 
-filterSlider.classList.add('hidden')
+filterSlider.classList.add('hidden');
 
 filterSlider.noUiSlider.on('update', function (_, handle, unencoded) {
   filterValue.value = unencoded[handle];
@@ -48,7 +48,7 @@ imgFilters[0].addEventListener('change', function (evt) {
 imgFilters[1].addEventListener('change', function (evt) {
   if (evt.target.checked) {
     filterSlider.classList.remove('hidden');
-    document.querySelector('.effects__preview--chrome').style.filter = 'grayscale(' + filterValue.value + ')';
+    
     filterSlider.noUiSlider.updateOptions({
       range: {
         min: 0,
@@ -57,7 +57,7 @@ imgFilters[1].addEventListener('change', function (evt) {
       start: 1,
       step: 0.1,
     })
-    
+    imageUpload.style.filter = 'grayscale(' + filterValue.value + ')';
   }
 })
 
