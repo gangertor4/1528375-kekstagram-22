@@ -9,21 +9,24 @@ const imageUpload = document.querySelector('.img-upload__preview');
 
 
 const increaseImg = function () {
-  if (parseInt(scaleValue.value, 10) < SCALE_MAX_LEVEL) {
-    imageUpload.style.transform = 'scale(0.' + (parseInt(scaleValue.value, 10) + SCALE_STEP) + ')';
-    scaleValue.value = parseInt(scaleValue.value, 10) + SCALE_STEP + '%';
-    if (parseInt(scaleValue.value, 10) === SCALE_MAX_LEVEL) {
-      imageUpload.style.transform = 'scale(1.0)';
-      scaleValue.value = '100%';
-    }
+  let scaleValueData = parseInt(scaleValue.value, 10);
+
+  if (scaleValueData === SCALE_MAX_LEVEL || scaleValueData + SCALE_STEP === SCALE_MAX_LEVEL) {
+    imageUpload.style.transform = 'scale(1.0)';
+    scaleValue.value = '100%';
+  } else if (scaleValueData < SCALE_MAX_LEVEL) {
+    imageUpload.style.transform = `scale(0.${(scaleValueData + SCALE_STEP)})`;
+    scaleValue.value = `${scaleValueData + SCALE_STEP}%`;
   }
 }
 
 const decreaseImg = function () {
-  if (parseInt(scaleValue.value, 10) > SCALE_MIN_LEVEL) {
-    imageUpload.style.transform = 'scale(0.' + (parseInt(scaleValue.value, 10) - SCALE_STEP) + ')';
-    scaleValue.value = parseInt(scaleValue.value, 10) - SCALE_STEP + '%';
-  } else if (parseInt(scaleValue.value, 10) === SCALE_MIN_LEVEL) {
+  let scaleValueData = parseInt(scaleValue.value, 10);
+
+  if (scaleValueData > SCALE_MIN_LEVEL) {
+    imageUpload.style.transform = `scale(0.${(scaleValueData - SCALE_STEP)})`;
+    scaleValue.value = `${scaleValueData - SCALE_STEP}%`;
+  } else if (scaleValueData === SCALE_MIN_LEVEL) {
     imageUpload.style.transform = 'scale(0.25)';
   }
 }

@@ -57,7 +57,7 @@ imgFilters[1].addEventListener('change', function (evt) {
 
     filterSlider.noUiSlider.on('update', function (_, handle, unencoded) {
       filterValue.value = unencoded[handle];
-      imageUpload.style.filter = 'grayscale(' + filterValue.value + ')';
+      imageUpload.style.filter = `grayscale(${filterValue.value})`;
     })
   }
 })
@@ -77,7 +77,7 @@ imgFilters[2].addEventListener('change', function (evt) {
 
     filterSlider.noUiSlider.on('update', function (_, handle, unencoded) {
       filterValue.value = unencoded[handle];
-      imageUpload.style.filter = 'sepia(' + filterValue.value + ')';
+      imageUpload.style.filter = `sepia(${filterValue.value})`;
     })
   }
 })
@@ -97,7 +97,7 @@ imgFilters[3].addEventListener('change', function (evt) {
 
     filterSlider.noUiSlider.on('update', function (_, handle, unencoded) {
       filterValue.value = unencoded[handle];
-      imageUpload.style.filter = 'invert(' + filterValue.value + '%)';
+      imageUpload.style.filter = `invert(${filterValue.value}%)`;
     })
   }
 })
@@ -117,7 +117,7 @@ imgFilters[4].addEventListener('change', function (evt) {
 
     filterSlider.noUiSlider.on('update', function (_, handle, unencoded) {
       filterValue.value = unencoded[handle];
-      imageUpload.style.filter = 'blur(' + filterValue.value + 'px)';
+      imageUpload.style.filter = `blur(${filterValue.value}px)`;
     })
   }
 })
@@ -137,7 +137,7 @@ imgFilters[5].addEventListener('change', function (evt) {
 
     filterSlider.noUiSlider.on('update', function (_, handle, unencoded) {
       filterValue.value = unencoded[handle];
-      imageUpload.style.filter = 'brightness(' + filterValue.value + ')';
+      imageUpload.style.filter = `brightness(${filterValue.value})`;
     })
   }
 })
