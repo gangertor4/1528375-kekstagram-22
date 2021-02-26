@@ -5,4 +5,8 @@ const getRandomNumber = function(min, max) {
   return Math.floor(Math.random() * (maxNumber - minNumber + 1)) + minNumber;
 }
 
-export {getRandomNumber};
+const isEscEvent = function (evt) {
+  return evt.key === ('Escape' || 'Esc');
+};
+
+export {getRandomNumber, isEscEvent};
