@@ -1,17 +1,16 @@
-const submitBtn = document.querySelector('.img-upload__submit');
 const uploadForm = document.querySelector('.img-upload__form');
 const tagInput = document.querySelector('.text__hashtags');
 
 const tagSymbols = /[0-9A-Za-z#]+/g;
 const sharpStart = (/[^#]/gm);
-const TAG_MIN_LENGTH = 2;
-const TAG_MAX_LENGTH = 20;
-const MAX_NUM_OF_TAGS = 5;
+// const TAG_MIN_LENGTH = 2;
+// const TAG_MAX_LENGTH = 20;
+// const MAX_NUM_OF_TAGS = 5;
 
 
 const tagsValidity = function () {
   let tagsArr = tagInput.value.split(' ');
-  console.log(tagsArr);
+  // console.log(tagsArr);
 
   for (let i = 0; i < tagsArr.length - 1; i++) {
     const tagItem = tagsArr[i].toString();
@@ -19,7 +18,7 @@ const tagsValidity = function () {
     const symbolsTest = tagItem.search(tagSymbols);
     // const isSharpStart = sharpStart.test(tagItem);
     // const symbolsTest = tagSymbols.test(tagItem);
-    console.log(tagsArr[i] + ' ' + symbolsTest);
+    // console.log(tagsArr[i] + ' ' + symbolsTest);
 
     if (isSharpStart < 0) {
       tagInput.setCustomValidity('Хэш-тег должен начинаться с символа #');
@@ -37,7 +36,7 @@ const tagsValidity = function () {
     // } else if (tagsArr.length > MAX_NUM_OF_TAGS) {
     //   tagInput.setCustomValidity('Нельзя указать больше пяти хэш-тегов')
     // }
-    
+
     tagInput.setCustomValidity('');
   }
 }
