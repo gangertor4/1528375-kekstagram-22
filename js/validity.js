@@ -1,12 +1,17 @@
 const uploadForm = document.querySelector('.img-upload__form');
 const tagInput = document.querySelector('.text__hashtags');
 
+const commentInput = document.querySelector('.text__description');
+
+//Инструменты валидации хэш-тегов
 const tagSymbols = /#[^0-9A-Za-z]+/g;
 const sharpStart = /^#/;
 const middleSharp = /.#./;
 const TAG_MIN_LENGTH = 2;
 const TAG_MAX_LENGTH = 20;
 const MAX_NUM_OF_TAGS = 5;
+
+const COMMENT_MAX = 140;
 
 
 const tagsValidity = function () {
@@ -63,10 +68,23 @@ const tagsValidity = function () {
       }
     }
     tagInput.setCustomValidity('');
-  }
+  }  
 }
 
 tagInput.addEventListener('input', tagsValidity);
+
+//Валидация комментариев
+const commentValidity = function () {
+  if (commentInput.value.length > COMMENT_MAX) {
+    commentInput.setCustomValidity(`Комментарий не больше 140 символов. Удалите ${commentInput.value.length - COMMENT_MAX} симв.`)
+
+    return
+  } else {
+    commentInput.setCustomValidity('');
+  }
+}
+
+commentInput.addEventListener('input', commentValidity);
 
 uploadForm.addEventListener('submit', function (evt) {
   evt.preventDefault();
