@@ -31,6 +31,7 @@ noUiSlider.create(filterSlider, {
   },
   start: 80,
   step: 1,
+  connect: 'lower',
 });
 
 filterSlider.classList.add('hidden');
@@ -53,6 +54,7 @@ imgFilters[1].addEventListener('change', function (evt) {
       },
       start: 1,
       step: 0.1,
+      connect: true,
     })
 
     filterSlider.noUiSlider.on('update', function (_, handle, unencoded) {
@@ -73,6 +75,7 @@ imgFilters[2].addEventListener('change', function (evt) {
       },
       start: 1,
       step: 0.1,
+      connect: true,
     })
 
     filterSlider.noUiSlider.on('update', function (_, handle, unencoded) {
@@ -93,6 +96,7 @@ imgFilters[3].addEventListener('change', function (evt) {
       },
       start: 100,
       step: 1,
+      connect: true,
     })
 
     filterSlider.noUiSlider.on('update', function (_, handle, unencoded) {
@@ -113,6 +117,7 @@ imgFilters[4].addEventListener('change', function (evt) {
       },
       start: 3,
       step: 0.1,
+      connect: true,
     })
 
     filterSlider.noUiSlider.on('update', function (_, handle, unencoded) {
@@ -133,6 +138,7 @@ imgFilters[5].addEventListener('change', function (evt) {
       },
       start: 3,
       step: 0.1,
+      connect: true,
     })
 
     filterSlider.noUiSlider.on('update', function (_, handle, unencoded) {
