@@ -3,7 +3,6 @@ const tagInput = document.querySelector('.text__hashtags');
 
 const commentInput = document.querySelector('.text__description');
 
-//Инструменты валидации хэш-тегов
 const tagSymbols = /#[^0-9A-Za-z]+/g;
 const sharpStart = /^#/;
 const middleSharp = /.#./;
@@ -12,6 +11,16 @@ const TAG_MAX_LENGTH = 20;
 const MAX_NUM_OF_TAGS = 5;
 
 const COMMENT_MAX = 140;
+
+const checkForDoubles = function (array, arrayItem, regularIndex, doubleIndex) {
+  let doubles = 0;
+  const doubleTagItem = array[doubleIndex].toString().toLowerCase()
+  if (arrayItem === doubleTagItem  && doubleIndex != regularIndex) {
+    doubles++;
+
+    return doubles;
+  }
+}
 
 
 const tagsValidity = function () {
@@ -55,25 +64,21 @@ const tagsValidity = function () {
       return
     }
 
-    let doubles = 0;
     for (let j = 0; j < tagsArr.length; j++) {
-      const doubleTagItem = tagsArr[j].toString().toLowerCase()
-      if (tagItem === doubleTagItem  && j != i) {
-        doubles++;
-        if (doubles > 0) {
-          tagInput.setCustomValidity('Хэш-теги не должны повторяться')
+      if (checkForDoubles(tagsArr, tagItem, i, j) > 0) {
+        tagInput.setCustomValidity('Хэш-теги не должны повторяться')
 
-          return
-        }
+        return
       }
     }
+    
     tagInput.setCustomValidity('');
   }  
 }
 
 tagInput.addEventListener('input', tagsValidity);
 
-//Валидация комментариев
+
 const commentValidity = function () {
   if (commentInput.value.length > COMMENT_MAX) {
     commentInput.setCustomValidity(`Комментарий не больше 140 символов. Удалите ${commentInput.value.length - COMMENT_MAX} симв.`)
