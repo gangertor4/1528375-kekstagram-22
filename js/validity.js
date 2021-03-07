@@ -13,15 +13,9 @@ const MAX_NUM_OF_TAGS = 5;
 const COMMENT_MAX = 140;
 
 const checkForDoubles = function (array, arrayItem, regularIndex, doubleIndex) {
-  let doubles = 0;
   const doubleTagItem = array[doubleIndex].toString().toLowerCase()
-  if (arrayItem === doubleTagItem  && doubleIndex != regularIndex) {
-    doubles++;
-
-    return doubles;
-  }
+  return arrayItem === doubleTagItem  && doubleIndex != regularIndex;
 }
-
 
 const tagsValidity = function () {
   let tagsArr = tagInput.value.split(' ')
@@ -65,13 +59,12 @@ const tagsValidity = function () {
     }
 
     for (let j = 0; j < tagsArr.length; j++) {
-      if (checkForDoubles(tagsArr, tagItem, i, j) > 0) {
+      if (checkForDoubles(tagsArr, tagItem, i, j)) {
         tagInput.setCustomValidity('Хэш-теги не должны повторяться')
 
         return
       }
     }
-    
     tagInput.setCustomValidity('');
   }  
 }
