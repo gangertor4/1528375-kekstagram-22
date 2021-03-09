@@ -2,13 +2,14 @@ import {showBigPicture} from './big-picture.js'
 
 const userPictureListElement = document.querySelector('.pictures');
 
-document.querySelector('.pictures__title').classList.remove('.visually-hidden');
+
 
 const randomUserTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
 const userPictureListFragment = document.createDocumentFragment();
 
 const createPicturesList = function (userPicture) {
+  document.querySelector('.pictures__title').classList.remove('.visually-hidden');
   userPicture.forEach((user) => {
     const userPictureElement = randomUserTemplate.cloneNode(true);
     userPictureElement.querySelector('.picture__img').src = user.url;

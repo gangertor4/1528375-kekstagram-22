@@ -34,18 +34,18 @@ noUiSlider.create(filterSlider, {
   connect: 'lower',
 });
 
-filterSlider.classList.add('hidden');
+filterSlider.style.display = 'none'
 
 imgFilters[0].addEventListener('change', function (evt) {
   if (evt.target.checked) {
-    filterSlider.classList.add('hidden');
+    filterSlider.style.display = 'none';
     imageUpload.style.filter = 'none';
   }
 })
 
 imgFilters[1].addEventListener('change', function (evt) {
   if (evt.target.checked) {
-    filterSlider.classList.remove('hidden');
+    filterSlider.style.display = 'block';
     
     filterSlider.noUiSlider.updateOptions({
       range: {
@@ -66,7 +66,7 @@ imgFilters[1].addEventListener('change', function (evt) {
 
 imgFilters[2].addEventListener('change', function (evt) {
   if (evt.target.checked) {
-    filterSlider.classList.remove('hidden');
+    filterSlider.style.display = 'block';
     
     filterSlider.noUiSlider.updateOptions({
       range: {
@@ -87,7 +87,7 @@ imgFilters[2].addEventListener('change', function (evt) {
 
 imgFilters[3].addEventListener('change', function (evt) {
   if (evt.target.checked) {
-    filterSlider.classList.remove('hidden');
+    filterSlider.style.display = 'block';
     
     filterSlider.noUiSlider.updateOptions({
       range: {
@@ -108,7 +108,7 @@ imgFilters[3].addEventListener('change', function (evt) {
 
 imgFilters[4].addEventListener('change', function (evt) {
   if (evt.target.checked) {
-    filterSlider.classList.remove('hidden');
+    filterSlider.style.display = 'block';
     
     filterSlider.noUiSlider.updateOptions({
       range: {
@@ -129,7 +129,7 @@ imgFilters[4].addEventListener('change', function (evt) {
 
 imgFilters[5].addEventListener('change', function (evt) {
   if (evt.target.checked) {
-    filterSlider.classList.remove('hidden');
+    filterSlider.style.display = 'block';
     
     filterSlider.noUiSlider.updateOptions({
       range: {
