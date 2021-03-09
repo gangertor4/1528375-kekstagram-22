@@ -28,10 +28,10 @@ uploadForm.addEventListener('submit', function (evt) {
       body: formData,
     },
   )
-  .then(() => closeUploadForm())
+    .then(() => closeUploadForm())
 
-  .then(() => createSuccessMessage())
-  .catch(() => createErrorMessage())
+    .then(() => createSuccessMessage())
+    .catch(() => createErrorMessage())
 })
 
 
