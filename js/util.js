@@ -30,8 +30,6 @@ const clickAwayClose = function (evt, div, message) {
 
 const closePopUp = function(message) {
   document.querySelector('main').removeChild(message);
-  document.removeEventListener('click', clickAwayClose);
-  document.removeEventListener('keydown', onPopUpEscKeydown)
 }
 
 const createSuccessMessage = function() {
@@ -44,13 +42,18 @@ const createSuccessMessage = function() {
     closePopUp(successMessage)
   });
 
-  document.addEventListener('keydown', function(evt) {
+  document.addEventListener('keydown', function popUpEscCallback(evt) {
     onPopUpEscKeydown(evt, successMessage);
+
+    document.removeEventListener('keydown', popUpEscCallback)
   });
 
-  document.addEventListener('click', function(evt) {
+  document.addEventListener('click', function clickAwayCallback(evt) {
     clickAwayClose(evt, successDiv, successMessage);
+
+    document.removeEventListener('click', clickAwayCallback);
   });
+
 }
 
 const createErrorMessage = function() {
@@ -63,12 +66,16 @@ const createErrorMessage = function() {
     closePopUp(errorMessage)
   });
 
-  document.addEventListener('keydown', function(evt) {
+  document.addEventListener('keydown', function popUpEscCallback(evt) {
     onPopUpEscKeydown(evt, errorMessage);
+
+    document.removeEventListener('keydown', popUpEscCallback)
   });
 
-  document.addEventListener('click', function(evt) {
+  document.addEventListener('click', function clickAwayCallback(evt) {
     clickAwayClose(evt, errorDiv, errorMessage);
+
+    document.removeEventListener('click', clickAwayCallback);
   });
 }
 

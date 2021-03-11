@@ -1,16 +1,16 @@
 import {isEscEvent} from './util.js';
 
 const bigPicture = document.querySelector('.big-picture');
-let bigPictureImg = document.querySelector('.big-picture__img img');
-const likesNumber = document.querySelector('.likes-count');
-const commentsNumber = document.querySelector('.comments-count');
-const photoDesc = document.querySelector('.social__caption');
-let commentBox = document.querySelector('.social__comments');
-const commentLoadBtn = document.querySelector('.comments-loader');
+const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
+const likesNumber = bigPicture.querySelector('.likes-count');
+const commentsNumber = bigPicture.querySelector('.comments-count');
+const photoDesc = bigPicture.querySelector('.social__caption');
+const commentBox = bigPicture.querySelector('.social__comments');
+const commentLoadBtn = bigPicture.querySelector('.comments-loader');
 
 const bigPictureCancel = document.querySelector('.big-picture__cancel');
 
-let qtyOfComments = 5;
+const QTY_OF_COMMENTS = 5;
 let commentArr = [];
 
 const closeBigPicture= function() {
@@ -18,14 +18,14 @@ const closeBigPicture= function() {
   document.querySelector('body').classList.remove('modal-open');
 };
 
-const loadingComments = function(qty, array) {
-  if (qty > array.length) {
+const loadingComments = function(array) {
+  if (QTY_OF_COMMENTS > array.length) {
     for (let i = 0; i < array.length; i++) {
       commentLoadBtn.classList.add('hidden');
       commentBox.appendChild(array[i]);
     }
   } else {
-    for (let i = 0; i < qty; i++) {
+    for (let i = 0; i < QTY_OF_COMMENTS; i++) {
       commentLoadBtn.classList.remove('hidden');
       commentBox.appendChild(array[i])
     }
@@ -41,7 +41,6 @@ const showBigPicture = function (user) {
   commentsNumber.textContent = user.comments.length;
   photoDesc.textContent = user.description;
 
-  qtyOfComments = 5;
   commentArr = [];
 
   user.comments.forEach((el) => {
@@ -54,16 +53,16 @@ const showBigPicture = function (user) {
     commentArr.push(commentList)
   })
 
-  while (commentBox.firstChild) {
-    commentBox.removeChild(commentBox.firstChild);
-  }
+  commentBox.innerHTML = '';
 
-  loadingComments(qtyOfComments, commentArr);
+
+  loadingComments(commentArr.slice(0, QTY_OF_COMMENTS));
+  commentArr.splice(0, QTY_OF_COMMENTS);
 }
 
 commentLoadBtn.addEventListener('click', function() {
-  qtyOfComments = qtyOfComments + 5;
-  loadingComments(qtyOfComments, commentArr);
+  loadingComments(commentArr.slice(0, QTY_OF_COMMENTS));
+  commentArr.splice(0, QTY_OF_COMMENTS);
 })
 
 bigPictureCancel.addEventListener('click', function() {
