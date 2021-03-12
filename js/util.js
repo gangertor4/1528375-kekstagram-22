@@ -1,3 +1,12 @@
+const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
+const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
+const successDiv = document.querySelector('.success__inner');
+const errorDiv = document.querySelector('.error__inner');
+
+const successMessage = successMessageTemplate.cloneNode(true);
+const errorMessage = errorMessageTemplate.cloneNode(true);
+
+
 const getRandomNumber = function(min, max) {
   const maxNumber = (max > min) ? Math.floor(max) : Math.ceil(min);
   const minNumber = (max > min) ? Math.ceil(min) : Math.floor(max);
@@ -10,10 +19,6 @@ const isEscEvent = function (evt) {
 };
 
 
-const successMessageTemplate = document.querySelector('#success').content.querySelector('.success');
-const errorMessageTemplate = document.querySelector('#error').content.querySelector('.error');
-const successDiv = document.querySelector('.success__inner');
-const errorDiv = document.querySelector('.error__inner');
 
 const onPopUpEscKeydown = function (evt, message) {
   if (isEscEvent(evt)) {
@@ -22,18 +27,39 @@ const onPopUpEscKeydown = function (evt, message) {
   }
 };
 
-const clickAwayClose = function (evt, div, message) {
+const escSuccessCallback = function (evt) {
+  onPopUpEscKeydown(evt, successMessage) 
+}
+
+const escErrorCallback = function (evt) {
+  onPopUpEscKeydown(evt, errorMessage) 
+}
+
+
+
+const onOutsideClickClose = function (evt, div, message) {
   if (evt.target.closest(div)) return;
-    
+
   closePopUp(message)
+}
+
+const outsideClickSuccessCallback = function (evt) {
+  onOutsideClickClose(evt, successDiv, successMessage)
+}
+
+const outsideClickErrorCallback = function (evt) {
+  onOutsideClickClose(evt, errorDiv, errorMessage)
 }
 
 const closePopUp = function(message) {
   document.querySelector('main').removeChild(message);
+  document.removeEventListener('keydown', escSuccessCallback);
+  document.removeEventListener('click', outsideClickSuccessCallback);
+  document.removeEventListener('keydown', escErrorCallback);
+  document.removeEventListener('click', outsideClickErrorCallback);
 }
 
 const createSuccessMessage = function() {
-  const successMessage = successMessageTemplate.cloneNode(true);
   document.querySelector('main').appendChild(successMessage);
 
   const successBtn = document.querySelector('.success__button');
@@ -42,22 +68,12 @@ const createSuccessMessage = function() {
     closePopUp(successMessage)
   });
 
-  document.addEventListener('keydown', function popUpEscCallback(evt) {
-    onPopUpEscKeydown(evt, successMessage);
+  document.addEventListener('keydown', escSuccessCallback);  
 
-    document.removeEventListener('keydown', popUpEscCallback)
-  });
-
-  document.addEventListener('click', function clickAwayCallback(evt) {
-    clickAwayClose(evt, successDiv, successMessage);
-
-    document.removeEventListener('click', clickAwayCallback);
-  });
-
+  document.addEventListener('click', outsideClickSuccessCallback);
 }
 
 const createErrorMessage = function() {
-  const errorMessage = errorMessageTemplate.cloneNode(true);
   document.querySelector('main').appendChild(errorMessage);
 
   const errorBtn = document.querySelector('.error__button');
@@ -66,17 +82,9 @@ const createErrorMessage = function() {
     closePopUp(errorMessage)
   });
 
-  document.addEventListener('keydown', function popUpEscCallback(evt) {
-    onPopUpEscKeydown(evt, errorMessage);
+  document.addEventListener('keydown', escErrorCallback);
 
-    document.removeEventListener('keydown', popUpEscCallback)
-  });
-
-  document.addEventListener('click', function clickAwayCallback(evt) {
-    clickAwayClose(evt, errorDiv, errorMessage);
-
-    document.removeEventListener('click', clickAwayCallback);
-  });
+  document.addEventListener('click', outsideClickErrorCallback);
 }
 
 
