@@ -18,17 +18,47 @@ const closeBigPicture= function() {
   document.querySelector('body').classList.remove('modal-open');
 };
 
-const loadingComments = function(array) {
-  if (QTY_OF_COMMENTS > array.length) {
-    for (let i = 0; i < array.length; i++) {
-      commentLoadBtn.classList.add('hidden');
-      commentBox.appendChild(array[i]);
-    }
+// const loadingComments = function(array) {
+//   if (QTY_OF_COMMENTS > array.length) {
+//     for (let i = 0; i < array.length; i++) {
+//       commentLoadBtn.classList.add('hidden');
+//       commentBox.appendChild(array[i]);
+//     }
+//   } else {
+//     for (let i = 0; i < QTY_OF_COMMENTS; i++) {
+//       commentLoadBtn.classList.remove('hidden');
+//       commentBox.appendChild(array[i])
+//       array.slice(0, QTY_OF_COMMENTS);
+//       // array.splice(0, QTY_OF_COMMENTS);
+//     }
+//   }
+// }
+
+// const btnLoad = function (array) {
+//   if (QTY_OF_COMMENTS < array.length) {
+//     commentLoadBtn.classList.remove('hidden');
+//   } else {
+//     commentLoadBtn.classList.add('hidden');
+//   }
+// }
+
+const btnLoad = function (array) {
+  if (QTY_OF_COMMENTS < array.length) {
+    commentLoadBtn.classList.remove('hidden');
   } else {
-    for (let i = 0; i < QTY_OF_COMMENTS; i++) {
-      commentLoadBtn.classList.remove('hidden');
-      commentBox.appendChild(array[i])
-    }
+    commentLoadBtn.classList.add('hidden');
+  }
+}
+
+
+const loadingComments = function (array, duration) {
+  btnLoad(array);
+  QTY_OF_COMMENTS > array.length ? 
+    duration = array.length :  
+    duration = QTY_OF_COMMENTS;
+
+  for (let i = 0; i < duration; i++) {
+    commentBox.appendChild(array[i]);
   }
 }
 
@@ -55,14 +85,11 @@ const showBigPicture = function (user) {
 
   commentBox.innerHTML = '';
 
-
-  loadingComments(commentArr.slice(0, QTY_OF_COMMENTS));
-  commentArr.splice(0, QTY_OF_COMMENTS);
+  loadingComments(commentArr.splice(0, QTY_OF_COMMENTS));
 }
 
 commentLoadBtn.addEventListener('click', function() {
-  loadingComments(commentArr.slice(0, QTY_OF_COMMENTS));
-  commentArr.splice(0, QTY_OF_COMMENTS);
+  loadingComments(commentArr.splice(0, QTY_OF_COMMENTS));
 })
 
 bigPictureCancel.addEventListener('click', function() {
