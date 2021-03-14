@@ -18,30 +18,6 @@ const closeBigPicture= function() {
   document.querySelector('body').classList.remove('modal-open');
 };
 
-// const loadingComments = function(array) {
-//   if (QTY_OF_COMMENTS > array.length) {
-//     for (let i = 0; i < array.length; i++) {
-//       commentLoadBtn.classList.add('hidden');
-//       commentBox.appendChild(array[i]);
-//     }
-//   } else {
-//     for (let i = 0; i < QTY_OF_COMMENTS; i++) {
-//       commentLoadBtn.classList.remove('hidden');
-//       commentBox.appendChild(array[i])
-//       array.slice(0, QTY_OF_COMMENTS);
-//       // array.splice(0, QTY_OF_COMMENTS);
-//     }
-//   }
-// }
-
-// const btnLoad = function (array) {
-//   if (QTY_OF_COMMENTS < array.length) {
-//     commentLoadBtn.classList.remove('hidden');
-//   } else {
-//     commentLoadBtn.classList.add('hidden');
-//   }
-// }
-
 const btnLoad = function () {
   if (QTY_OF_COMMENTS < commentArr.length) {
     commentLoadBtn.classList.remove('hidden');
@@ -49,7 +25,6 @@ const btnLoad = function () {
     commentLoadBtn.classList.add('hidden');
   }
 }
-
 
 const loadingComments = function () {
   btnLoad(commentArr);
