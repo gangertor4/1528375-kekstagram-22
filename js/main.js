@@ -5,6 +5,8 @@ import './upload.js';
 import './resize.js';
 import './slider-effects.js';
 import './validity.js';
+import './big-picture.js';
+import './backend.js';
 
 
 
