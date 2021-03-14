@@ -42,8 +42,8 @@ const closeBigPicture= function() {
 //   }
 // }
 
-const btnLoad = function (array) {
-  if (QTY_OF_COMMENTS < array.length) {
+const btnLoad = function () {
+  if (QTY_OF_COMMENTS < commentArr.length) {
     commentLoadBtn.classList.remove('hidden');
   } else {
     commentLoadBtn.classList.add('hidden');
@@ -51,15 +51,16 @@ const btnLoad = function (array) {
 }
 
 
-const loadingComments = function (array, duration) {
-  btnLoad(array);
-  QTY_OF_COMMENTS > array.length ? 
-    duration = array.length :  
-    duration = QTY_OF_COMMENTS;
+const loadingComments = function () {
+  btnLoad(commentArr);
+  const duration =  QTY_OF_COMMENTS > commentArr.length ?
+    commentArr.length :  
+    QTY_OF_COMMENTS;
 
   for (let i = 0; i < duration; i++) {
-    commentBox.appendChild(array[i]);
+    commentBox.appendChild(commentArr[i]);
   }
+  commentArr.splice(0, QTY_OF_COMMENTS)
 }
 
 const showBigPicture = function (user) {
@@ -85,11 +86,11 @@ const showBigPicture = function (user) {
 
   commentBox.innerHTML = '';
 
-  loadingComments(commentArr.splice(0, QTY_OF_COMMENTS));
+  loadingComments();
 }
 
 commentLoadBtn.addEventListener('click', function() {
-  loadingComments(commentArr.splice(0, QTY_OF_COMMENTS));
+  loadingComments();
 })
 
 bigPictureCancel.addEventListener('click', function() {
