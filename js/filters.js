@@ -43,11 +43,11 @@ const onDiscussedBtnSort = function (list, box, arr) {
 
 const onRandomBtnSort = function (list, box, arr) {
   removePictures(list, box);
-  createOnePicture(sortRandom(arr), sortFragment);
+  const randomArr = sortRandom(arr).slice(0, 10)
+  createOnePicture(randomArr, sortFragment);
   box.appendChild(sortFragment);
 }
 
 
 export {onDefaultBtnSort, onDiscussedBtnSort, onRandomBtnSort}
-
 
