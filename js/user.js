@@ -1,31 +1,63 @@
-import {showBigPicture} from './big-picture.js'
+/* global _:readonly */
+import {showBigPicture} from './big-picture.js';
+import {onDefaultBtnSort, onDiscussedBtnSort, onRandomBtnSort} from './filters.js';
+
+const filterDefaultBtn = document.querySelector('#filter-default');
+const filterRandomBtn = document.querySelector('#filter-random');
+const filterDiscussedBtn = document.querySelector('#filter-discussed');
+
+const DEBOUNCE_DELAY = 500;
+
+
 
 const userPictureListElement = document.querySelector('.pictures');
-
-
 
 const randomUserTemplate = document.querySelector('#picture').content.querySelector('.picture');
 
 const userPictureListFragment = document.createDocumentFragment();
 
-const createPicturesList = function (userPicture) {
-  document.querySelector('.pictures__title').classList.remove('.visually-hidden');
+const createOnePicture = function (userPicture, frag) {
   userPicture.forEach((user) => {
     const userPictureElement = randomUserTemplate.cloneNode(true);
     userPictureElement.querySelector('.picture__img').src = user.url;
     userPictureElement.querySelector('.picture__likes').textContent = user.likes;
     userPictureElement.querySelector('.picture__comments').textContent = user.comments.length;
-    userPictureListFragment.appendChild(userPictureElement);
+    frag.appendChild(userPictureElement);
 
     userPictureElement.querySelector('.picture__img').addEventListener('click', function() {
       showBigPicture(user)
     })
-
   });
-
-  userPictureListElement.appendChild(userPictureListFragment);
-
-  
 }
 
-export {createPicturesList}
+
+const createPicturesList = function (userPicture) {
+  document.querySelector('.pictures__title').classList.remove('.visually-hidden');
+  createOnePicture(userPicture, userPictureListFragment);
+  userPictureListElement.appendChild(userPictureListFragment);
+
+  const picturesListCopy = Array.from(userPicture);
+
+  document.querySelector('.img-filters').classList.remove('img-filters--inactive');
+
+  
+  filterDefaultBtn.addEventListener('click', _.debounce(
+    () => {
+      const picturesList = document.querySelectorAll('.picture');
+      onDefaultBtnSort(picturesList, userPictureListElement, userPicture, userPictureListFragment)
+    }, DEBOUNCE_DELAY))
+  
+  filterDiscussedBtn.addEventListener('click', _.debounce(
+    () => {
+      const picturesList = document.querySelectorAll('.picture');
+      onDiscussedBtnSort(picturesList, userPictureListElement, picturesListCopy)
+    }, DEBOUNCE_DELAY))
+
+  filterRandomBtn.addEventListener('click', _.debounce(
+    () => {
+      const picturesList = document.querySelectorAll('.picture');
+      onRandomBtnSort(picturesList, userPictureListElement, picturesListCopy)
+    }, DEBOUNCE_DELAY))
+}
+
+export {createPicturesList, createOnePicture}
