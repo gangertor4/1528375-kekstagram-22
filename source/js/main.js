@@ -7,6 +7,8 @@ import './slider-effects.js';
 import './validity.js';
 import './big-picture.js';
 import './backend.js';
+import noUiSlider from 'nouislider';
+import 'nouislider/distribute/nouislider.css';
 
 
 

@@ -1,3 +1,4 @@
+/* global noUiSlider */
 let imgFilters = document.querySelectorAll('.effects__radio');
 const imageUpload = document.querySelector('.img-upload__preview');
 const filterSlider = document.querySelector('.effect-level__slider');
@@ -23,7 +24,7 @@ for (let i = 0; i < imgFilters.length; i++) {
   })
 }
 
-// eslint-disable-next-line no-undef
+
 noUiSlider.create(filterSlider, {
   range: {
     min: 0,
