@@ -24,10 +24,7 @@ const onFormEscKeydown = function (evt) {
   }
 };
 
-uploadFile.addEventListener('change', function () {
-  document.querySelector('.img-upload__overlay').classList.remove('hidden');
-  document.querySelector('body').classList.add('modal-open');
-
+const customPreview = function () {
   const userPreview = uploadFile.files[0];
   const isFileType = userPreview.name.search(fileTypes);
   
@@ -41,6 +38,13 @@ uploadFile.addEventListener('change', function () {
 
     reader.readAsDataURL(userPreview);
   }
+}
+
+uploadFile.addEventListener('change', function () {
+  document.querySelector('.img-upload__overlay').classList.remove('hidden');
+  document.querySelector('body').classList.add('modal-open');
+
+  customPreview();
 });
 
 uploadCancel.addEventListener('click', function() {
