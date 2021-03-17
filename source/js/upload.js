@@ -24,8 +24,8 @@ const onFormEscKeydown = function (evt) {
   }
 };
 
-const customPreview = function () {
-  const userPreview = uploadFile.files[0];
+const customPreview = function (uploadedFile) {
+  const userPreview = uploadedFile;
   const isFileType = userPreview.name.search(fileTypes);
   
 
@@ -44,7 +44,7 @@ uploadFile.addEventListener('change', function () {
   document.querySelector('.img-upload__overlay').classList.remove('hidden');
   document.querySelector('body').classList.add('modal-open');
 
-  customPreview();
+  customPreview(uploadFile.files[0]);
 });
 
 uploadCancel.addEventListener('click', function() {

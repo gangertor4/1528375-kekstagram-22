@@ -1,4 +1,3 @@
-/* global noUiSlider */
 let imgFilters = document.querySelectorAll('.effects__radio');
 const imageUpload = document.querySelector('.img-upload__preview');
 const filterSlider = document.querySelector('.effect-level__slider');
@@ -25,15 +24,7 @@ for (let i = 0; i < imgFilters.length; i++) {
 }
 
 
-noUiSlider.create(filterSlider, {
-  range: {
-    min: 0,
-    max: 100,
-  },
-  start: 80,
-  step: 1,
-  connect: 'lower',
-});
+
 
 filterSlider.style.display = 'none'
 
