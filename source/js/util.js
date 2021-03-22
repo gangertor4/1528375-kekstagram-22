@@ -87,5 +87,26 @@ const createErrorMessage = function() {
   document.addEventListener('click', outsideClickErrorCallback);
 }
 
+function debounce(func, wait) {
+  let timeout;
 
-export {getRandomNumber, isEscEvent, createSuccessMessage, createErrorMessage};
+  return function executedFunction() {
+    const context = this;
+    const args = arguments;
+
+    const later = function() {
+      timeout = null;
+    };
+
+    const callNow = !timeout;
+
+    clearTimeout(timeout);
+
+    timeout = setTimeout(later, wait);
+
+    if (callNow) func.apply(context, args);
+  };
+}
+
+
+export {getRandomNumber, isEscEvent, createSuccessMessage, createErrorMessage, debounce};

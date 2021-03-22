@@ -1,6 +1,6 @@
-/* global _:readonly */
 import {showBigPicture} from './big-picture.js';
 import {onDefaultBtnSort, onDiscussedBtnSort, onRandomBtnSort} from './filters.js';
+import {debounce} from './util.js';
 
 const filterDefaultBtn = document.querySelector('#filter-default');
 const filterRandomBtn = document.querySelector('#filter-random');
@@ -41,19 +41,19 @@ const createPicturesList = function (userPicture) {
   document.querySelector('.img-filters').classList.remove('img-filters--inactive');
 
   
-  filterDefaultBtn.addEventListener('click', _.debounce(
+  filterDefaultBtn.addEventListener('click', debounce(
     () => {
       const picturesList = document.querySelectorAll('.picture');
       onDefaultBtnSort(picturesList, userPictureListElement, userPicture, userPictureListFragment)
     }, DEBOUNCE_DELAY))
   
-  filterDiscussedBtn.addEventListener('click', _.debounce(
+  filterDiscussedBtn.addEventListener('click', debounce(
     () => {
       const picturesList = document.querySelectorAll('.picture');
       onDiscussedBtnSort(picturesList, userPictureListElement, picturesListCopy)
     }, DEBOUNCE_DELAY))
 
-  filterRandomBtn.addEventListener('click', _.debounce(
+  filterRandomBtn.addEventListener('click', debounce(
     () => {
       const picturesList = document.querySelectorAll('.picture');
       onRandomBtnSort(picturesList, userPictureListElement, picturesListCopy)

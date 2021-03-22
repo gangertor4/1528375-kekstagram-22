@@ -23,16 +23,8 @@ for (let i = 0; i < imgFilters.length; i++) {
   })
 }
 
-// eslint-disable-next-line no-undef
-noUiSlider.create(filterSlider, {
-  range: {
-    min: 0,
-    max: 100,
-  },
-  start: 80,
-  step: 1,
-  connect: 'lower',
-});
+
+
 
 filterSlider.style.display = 'none'
 
