@@ -21,7 +21,6 @@
   },
   "license": "MIT",
   "dependencies": {
-    "lodash.debounce": "^4.0.8",
     "nouislider": "^14.6.3"
   },
   "scripts": {
