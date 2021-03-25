@@ -27,36 +27,38 @@ const onPopUpEscKeydown = function (evt, message) {
   }
 };
 
-const escSuccessCallback = function (evt) {
+const onEscSuccess = function (evt) {
   onPopUpEscKeydown(evt, successMessage) 
 }
 
-const escErrorCallback = function (evt) {
+const onEscError = function (evt) {
   onPopUpEscKeydown(evt, errorMessage) 
 }
 
 
 
 const onOutsideClickClose = function (evt, div, message) {
-  if (evt.target.closest(div)) return;
+  if (evt.target.closest(div)) {
+    return;
+  }
 
   closePopUp(message)
 }
 
-const outsideClickSuccessCallback = function (evt) {
+const onOutsideClickSuccess = function (evt) {
   onOutsideClickClose(evt, successDiv, successMessage)
 }
 
-const outsideClickErrorCallback = function (evt) {
+const onOutsideClickError = function (evt) {
   onOutsideClickClose(evt, errorDiv, errorMessage)
 }
 
 const closePopUp = function(message) {
   document.querySelector('main').removeChild(message);
-  document.removeEventListener('keydown', escSuccessCallback);
-  document.removeEventListener('click', outsideClickSuccessCallback);
-  document.removeEventListener('keydown', escErrorCallback);
-  document.removeEventListener('click', outsideClickErrorCallback);
+  document.removeEventListener('keydown', onEscSuccess);
+  document.removeEventListener('click', onOutsideClickSuccess);
+  document.removeEventListener('keydown', onEscError);
+  document.removeEventListener('click', onOutsideClickError);
 }
 
 const createSuccessMessage = function() {
@@ -68,9 +70,9 @@ const createSuccessMessage = function() {
     closePopUp(successMessage)
   });
 
-  document.addEventListener('keydown', escSuccessCallback);  
+  document.addEventListener('keydown', onEscSuccess);  
 
-  document.addEventListener('click', outsideClickSuccessCallback);
+  document.addEventListener('click', onOutsideClickSuccess);
 }
 
 const createErrorMessage = function() {
@@ -82,9 +84,9 @@ const createErrorMessage = function() {
     closePopUp(errorMessage)
   });
 
-  document.addEventListener('keydown', escErrorCallback);
+  document.addEventListener('keydown', onEscError);
 
-  document.addEventListener('click', outsideClickErrorCallback);
+  document.addEventListener('click', onOutsideClickError);
 }
 
 function debounce(func, wait) {
@@ -104,7 +106,9 @@ function debounce(func, wait) {
 
     timeout = setTimeout(later, wait);
 
-    if (callNow) func.apply(context, args);
+    if (callNow) {
+      func.apply(context, args);
+    }
   };
 }
 

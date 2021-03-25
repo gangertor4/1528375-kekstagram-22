@@ -1,4 +1,5 @@
 import {isEscEvent} from './util.js';
+import {resetSliderEffects} from './slider-effects.js';
 
 const uploadFile = document.querySelector('#upload-file');
 const uploadCancel = document.querySelector('#upload-cancel');
@@ -11,10 +12,17 @@ const commentInput = document.querySelector('.text__description');
 
 const fileTypes = /(jpe?g|gif|png)$/i;
 
+
+
 const closeUploadForm = function() {
   document.querySelector('.img-upload__overlay').classList.add('hidden');
-  document.querySelector('body').classList.remove('modal-open');
+  document.body.classList.remove('modal-open');
   uploadForm.reset();
+  resetSliderEffects();
+  commentInput.setCustomValidity('');
+  commentInput.style.border = 'none';
+  tagInput.setCustomValidity('');
+  tagInput.style.border = 'none';
 };
 
 const onFormEscKeydown = function (evt) {
@@ -24,7 +32,7 @@ const onFormEscKeydown = function (evt) {
   }
 };
 
-const customPreview = function (uploadedFile) {
+const createCustomPreview = function (uploadedFile) {
   const userPreview = uploadedFile;
   const isFileType = userPreview.name.search(fileTypes);
   
@@ -42,21 +50,23 @@ const customPreview = function (uploadedFile) {
 
 uploadFile.addEventListener('change', function () {
   document.querySelector('.img-upload__overlay').classList.remove('hidden');
-  document.querySelector('body').classList.add('modal-open');
+  document.body.classList.add('modal-open');
 
-  customPreview(uploadFile.files[0]);
+  createCustomPreview(uploadFile.files[0]);
+
+  document.addEventListener('keydown', function(evt) {
+    if (commentInput === document.activeElement || tagInput === document.activeElement) {
+      evt.stopPropagation()
+    } else {
+      onFormEscKeydown(evt);
+    }
+  });
 });
 
 uploadCancel.addEventListener('click', function() {
   closeUploadForm();
 });
 
-document.addEventListener('keydown', function(evt) {
-  if (commentInput === document.activeElement || tagInput === document.activeElement) {
-    evt.stopPropagation()
-  } else {
-    onFormEscKeydown(evt);
-  }
-});
+
 
 export {closeUploadForm}

@@ -1,17 +1,20 @@
-import {createOnePicture} from './user.js'
+import {createOnePicture} from './user.js';
+import {debounce} from './util.js';
 
 const filterBtn = document.querySelectorAll('.img-filters__button');
 const sortFragment = document.createDocumentFragment();
 
+const RANDOM_PHOTOS_QTY = 10;
+const DEBOUNCE_DELAY = 500;
 
-for (let i = 0; i < filterBtn.length; i++) {
-  filterBtn[i].addEventListener('click', function () {
+filterBtn.forEach((filters) => {
+  filters.addEventListener('click', function () {
     filterBtn.forEach((btn) => {
       btn.classList.remove('img-filters__button--active');
     })
-    filterBtn[i].classList.add('img-filters__button--active');
+    filters.classList.add('img-filters__button--active');
   })
-}
+})
 
 const removePictures = function (list, box) {
   list.forEach((pic) => 
@@ -30,21 +33,21 @@ const sortRandom = function (arr) {
 
 const onDefaultBtnSort = function (list, box, arr, fragm) {
   removePictures(list, box);
-  createOnePicture(arr, fragm);
+  debounce(createOnePicture(arr, fragm), DEBOUNCE_DELAY);
   box.appendChild(fragm);
 }
 
 
 const onDiscussedBtnSort = function (list, box, arr) {
   removePictures(list, box);
-  createOnePicture(sortDiscussed(arr), sortFragment);
+  debounce(createOnePicture(sortDiscussed(arr), sortFragment), DEBOUNCE_DELAY);
   box.appendChild(sortFragment);
 }
 
 const onRandomBtnSort = function (list, box, arr) {
   removePictures(list, box);
-  const randomArr = sortRandom(arr).slice(0, 10);
-  createOnePicture(randomArr, sortFragment);
+  const randomArr = sortRandom(arr).slice(0, RANDOM_PHOTOS_QTY);
+  debounce(createOnePicture(randomArr, sortFragment), DEBOUNCE_DELAY);
   box.appendChild(sortFragment);
 }
 

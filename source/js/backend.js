@@ -4,9 +4,14 @@ import {createSuccessMessage, createErrorMessage} from './util.js'
 
 const uploadForm = document.querySelector('.img-upload__form');
 
+const url = {
+  GET: 'https://22.javascript.pages.academy/kekstagram/data',
+  POST: 'https://22.javascript.pages.academy/kekstagram',
+}
+
 
 fetch(
-  'https://22.javascript.pages.academy/kekstagram/data',
+  url.GET,
 )
   .then((response) => response.json())
 
@@ -22,16 +27,25 @@ uploadForm.addEventListener('submit', function (evt) {
   const formData = new FormData(evt.target);
 
   fetch( 
-    'https://22.javascript.pages.academy/kekstagram',
+    url.POST,
     {
       method: 'POST',
       body: formData,
     },
   )
-    .then(() => closeUploadForm())
-
-    .then(() => createSuccessMessage())
-    .catch(() => createErrorMessage())
+    .then((response) => {
+      if (response.ok) {
+        closeUploadForm();
+        createSuccessMessage();
+      } else {
+        closeUploadForm();
+        createErrorMessage();
+      }
+    })    
+    .catch(() => {
+      closeUploadForm();
+      createErrorMessage();
+    })
 })
 
 
