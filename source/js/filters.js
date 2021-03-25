@@ -1,11 +1,10 @@
 import {createOnePicture} from './user.js';
-import {debounce} from './util.js';
 
 const filterBtn = document.querySelectorAll('.img-filters__button');
 const sortFragment = document.createDocumentFragment();
 
+
 const RANDOM_PHOTOS_QTY = 10;
-const DEBOUNCE_DELAY = 500;
 
 filterBtn.forEach((filters) => {
   filters.addEventListener('click', function () {
@@ -33,21 +32,21 @@ const sortRandom = function (arr) {
 
 const onDefaultBtnSort = function (list, box, arr, fragm) {
   removePictures(list, box);
-  debounce(createOnePicture(arr, fragm), DEBOUNCE_DELAY);
+  createOnePicture(arr, fragm);
   box.appendChild(fragm);
 }
 
 
 const onDiscussedBtnSort = function (list, box, arr) {
   removePictures(list, box);
-  debounce(createOnePicture(sortDiscussed(arr), sortFragment), DEBOUNCE_DELAY);
+  createOnePicture(sortDiscussed(arr), sortFragment);
   box.appendChild(sortFragment);
 }
 
 const onRandomBtnSort = function (list, box, arr) {
   removePictures(list, box);
   const randomArr = sortRandom(arr).slice(0, RANDOM_PHOTOS_QTY);
-  debounce(createOnePicture(randomArr, sortFragment), DEBOUNCE_DELAY);
+  createOnePicture(randomArr, sortFragment);
   box.appendChild(sortFragment);
 }
 

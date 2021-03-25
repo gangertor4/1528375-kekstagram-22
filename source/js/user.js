@@ -2,6 +2,8 @@ import {showBigPicture} from './big-picture.js';
 import {onDefaultBtnSort, onDiscussedBtnSort, onRandomBtnSort} from './filters.js';
 import {debounce} from './util.js';
 
+const filterForm = document.querySelector('.img-filters__form');
+
 const filterDefaultBtn = document.querySelector('#filter-default');
 const filterRandomBtn = document.querySelector('#filter-random');
 const filterDiscussedBtn = document.querySelector('#filter-discussed');
@@ -41,23 +43,24 @@ const createPicturesList = function (userPicture) {
   document.querySelector('.img-filters').classList.remove('img-filters--inactive');
 
   
-  filterDefaultBtn.addEventListener('click', debounce(
-    () => {
+
+  filterForm.addEventListener('click',  debounce(
+    (evt) => {
       const picturesList = document.querySelectorAll('.picture');
-      onDefaultBtnSort(picturesList, userPictureListElement, userPicture, userPictureListFragment)
+
+      if (evt.target === filterDefaultBtn) {
+        onDefaultBtnSort(picturesList, userPictureListElement, userPicture, userPictureListFragment)
+      }
+    
+      if (evt.target === filterDiscussedBtn) {
+        onDiscussedBtnSort(picturesList, userPictureListElement, picturesListCopy)
+      }
+    
+      if (evt.target === filterRandomBtn) {
+        onRandomBtnSort(picturesList, userPictureListElement, picturesListCopy)
+      }
     }, DEBOUNCE_DELAY))
   
-  filterDiscussedBtn.addEventListener('click', debounce(
-    () => {
-      const picturesList = document.querySelectorAll('.picture');
-      onDiscussedBtnSort(picturesList, userPictureListElement, picturesListCopy)
-    }, DEBOUNCE_DELAY))
-
-  filterRandomBtn.addEventListener('click', debounce(
-    () => {
-      const picturesList = document.querySelectorAll('.picture');
-      onRandomBtnSort(picturesList, userPictureListElement, picturesListCopy)
-    }, DEBOUNCE_DELAY))
 }
 
 export {createPicturesList, createOnePicture}
